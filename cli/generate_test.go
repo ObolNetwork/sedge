@@ -1311,7 +1311,7 @@ func TestGenerateCmd(t *testing.T) {
 			nil,
 		},
 		{
-			"full-node random client Distributed",
+			"Full-node random client Distributed (goerli)",
 			subCmd{
 				name: "distributed",
 				args: []string{},
@@ -1321,6 +1321,20 @@ func TestGenerateCmd(t *testing.T) {
 			},
 			globalFlags{
 				network: "goerli",
+			},
+			nil,
+		},
+		{
+			"Full-node random client Distributed (holesky)",
+			subCmd{
+				name: "distributed",
+				args: []string{},
+			},
+			GenCmdFlags{
+				distributed: true,
+			},
+			globalFlags{
+				network: "holesky",
 			},
 			nil,
 		},

@@ -380,7 +380,7 @@ func TestGenerateComposeServices(t *testing.T) {
 			CheckFunctions: []CheckFunc{checkExtraFlagsOnExecution, checkValidatorBlocker},
 		},
 		{
-			Description: "Test Distributed Validator",
+			Description: "Test Distributed Validator (goerli)",
 			GenerationData: &GenData{
 				ExecutionClient:            &clients.Client{Name: "nethermind"},
 				ConsensusClient:            &clients.Client{Name: "teku"},
@@ -388,6 +388,19 @@ func TestGenerateComposeServices(t *testing.T) {
 				DistributedValidatorClient: &clients.Client{Name: "charon"},
 				Distributed:                true,
 				Network:                    "goerli",
+				Services:                   []string{execution, consensus, validator, distributedValidator},
+			},
+			CheckFunctions: []CheckFunc{defaultFunc, checkValidatorBlocker},
+		},
+		{
+			Description: "Test Distributed Validator (holesky)",
+			GenerationData: &GenData{
+				ExecutionClient:            &clients.Client{Name: "nethermind"},
+				ConsensusClient:            &clients.Client{Name: "teku"},
+				ValidatorClient:            &clients.Client{Name: "teku"},
+				DistributedValidatorClient: &clients.Client{Name: "charon"},
+				Distributed:                true,
+				Network:                    "holesky",
 				Services:                   []string{execution, consensus, validator, distributedValidator},
 			},
 			CheckFunctions: []CheckFunc{defaultFunc, checkValidatorBlocker},
@@ -633,13 +646,24 @@ func TestEnvFileAndFlags(t *testing.T) {
 			Error: nil,
 		},
 		{
-			Description: "Distributed validator charon with ConsensusApiUrl",
+			Description: "Distributed validator charon with ConsensusApiUrl (goerli)",
 			Data: &GenData{
 				ConsensusClient:            &clients.Client{Name: "teku"},
 				ValidatorClient:            &clients.Client{Name: "teku"},
 				DistributedValidatorClient: &clients.Client{Name: "charon"},
 				Distributed:                true,
 				Network:                    "goerli",
+				ConsensusApiUrl:            "http://localhost:8080",
+			},
+		},
+		{
+			Description: "Distributed validator charon with ConsensusApiUrl (holesky)",
+			Data: &GenData{
+				ConsensusClient:            &clients.Client{Name: "teku"},
+				ValidatorClient:            &clients.Client{Name: "teku"},
+				DistributedValidatorClient: &clients.Client{Name: "charon"},
+				Distributed:                true,
+				Network:                    "holesky",
 				ConsensusApiUrl:            "http://localhost:8080",
 			},
 		},
